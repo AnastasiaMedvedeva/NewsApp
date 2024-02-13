@@ -33,7 +33,7 @@ final class TabBarController: UITabBarController {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         navigationController.tabBarItem.title = title
         navigationController.tabBarItem.image = image
-        navigationController.title = title
+        rootViewController.navigationItem.title = title
         navigationController.navigationBar.prefersLargeTitles = true
         return navigationController
     }

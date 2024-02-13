@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D5A4DF02B7BCFE1009B5F5D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5D5A4DEF2B7BCFE1009B5F5D /* SnapKit */; };
+		5D5A4DF62B7BD75E009B5F5D /* GeneralCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5A4DF52B7BD75E009B5F5D /* GeneralCollectionViewCell.swift */; };
+		5D5A4DF82B7BE4F5009B5F5D /* DetailsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D5A4DF72B7BE4F5009B5F5D /* DetailsCollectionViewCell.swift */; };
 		5D9067322B7BA41300510F60 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9067312B7BA41300510F60 /* AppDelegate.swift */; };
 		5D9067362B7BA41300510F60 /* GeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9067352B7BA41300510F60 /* GeneralViewController.swift */; };
 		5D90673B2B7BA41400510F60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D90673A2B7BA41400510F60 /* Assets.xcassets */; };
@@ -17,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D5A4DF52B7BD75E009B5F5D /* GeneralCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralCollectionViewCell.swift; sourceTree = "<group>"; };
+		5D5A4DF72B7BE4F5009B5F5D /* DetailsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCollectionViewCell.swift; sourceTree = "<group>"; };
 		5D90672E2B7BA41300510F60 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D9067312B7BA41300510F60 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D9067352B7BA41300510F60 /* GeneralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralViewController.swift; sourceTree = "<group>"; };
@@ -33,12 +38,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D5A4DF02B7BCFE1009B5F5D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5D5A4DF12B7BD6F9009B5F5D /* General */ = {
+			isa = PBXGroup;
+			children = (
+				5D5A4DF42B7BD73D009B5F5D /* View */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		5D5A4DF22B7BD704009B5F5D /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				5D9067472B7BA55600510F60 /* BusinessViewController.swift */,
+				5D5A4DF72B7BE4F5009B5F5D /* DetailsCollectionViewCell.swift */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
+		5D5A4DF32B7BD70C009B5F5D /* Technology */ = {
+			isa = PBXGroup;
+			children = (
+				5D9067492B7BA56C00510F60 /* TechnologyViewController.swift */,
+			);
+			path = Technology;
+			sourceTree = "<group>";
+		};
+		5D5A4DF42B7BD73D009B5F5D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5D9067352B7BA41300510F60 /* GeneralViewController.swift */,
+				5D5A4DF52B7BD75E009B5F5D /* GeneralCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		5D9067252B7BA41300510F60 = {
 			isa = PBXGroup;
 			children = (
@@ -59,10 +99,10 @@
 			isa = PBXGroup;
 			children = (
 				5D9067312B7BA41300510F60 /* AppDelegate.swift */,
-				5D9067352B7BA41300510F60 /* GeneralViewController.swift */,
+				5D5A4DF12B7BD6F9009B5F5D /* General */,
 				5D9067452B7BA4C800510F60 /* TabBarController.swift */,
-				5D9067472B7BA55600510F60 /* BusinessViewController.swift */,
-				5D9067492B7BA56C00510F60 /* TechnologyViewController.swift */,
+				5D5A4DF22B7BD704009B5F5D /* Business */,
+				5D5A4DF32B7BD70C009B5F5D /* Technology */,
 				5D90673A2B7BA41400510F60 /* Assets.xcassets */,
 				5D90673C2B7BA41400510F60 /* LaunchScreen.storyboard */,
 				5D90673F2B7BA41400510F60 /* Info.plist */,
@@ -86,6 +126,9 @@
 			dependencies = (
 			);
 			name = NewsApp;
+			packageProductDependencies = (
+				5D5A4DEF2B7BCFE1009B5F5D /* SnapKit */,
+			);
 			productName = NewsApp;
 			productReference = 5D90672E2B7BA41300510F60 /* NewsApp.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +157,9 @@
 				Base,
 			);
 			mainGroup = 5D9067252B7BA41300510F60;
+			packageReferences = (
+				5D5A4DEE2B7BCFE1009B5F5D /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 5D90672F2B7BA41300510F60 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -141,9 +187,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D90674A2B7BA56C00510F60 /* TechnologyViewController.swift in Sources */,
+				5D5A4DF62B7BD75E009B5F5D /* GeneralCollectionViewCell.swift in Sources */,
 				5D9067462B7BA4C800510F60 /* TabBarController.swift in Sources */,
 				5D9067362B7BA41300510F60 /* GeneralViewController.swift in Sources */,
 				5D9067482B7BA55600510F60 /* BusinessViewController.swift in Sources */,
+				5D5A4DF82B7BE4F5009B5F5D /* DetailsCollectionViewCell.swift in Sources */,
 				5D9067322B7BA41300510F60 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +400,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5D5A4DEE2B7BCFE1009B5F5D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5D5A4DEF2B7BCFE1009B5F5D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5D5A4DEE2B7BCFE1009B5F5D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5D9067262B7BA41300510F60 /* Project object */;
 }
