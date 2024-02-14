@@ -7,7 +7,6 @@
 
 import UIKit
 import SnapKit
-
 class GeneralViewController: UIViewController {
     // MARK: - GUI Variables
     private lazy var searchBar: UISearchBar = {
@@ -26,14 +25,25 @@ class GeneralViewController: UIViewController {
         collectionView.delegate = self
         return collectionView
     }()
+    // MARK: - Properties
+    private let viewModel: GeneralViewModelProtocol
     
     // MARK: - Life cycle
+    init(viewModel: GeneralViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         view.addSubview(searchBar)
         view.addSubview(collectionView)
         setupUI()
+       // loadData()
     }
     
     //MARK: - Private methods
@@ -56,12 +66,13 @@ class GeneralViewController: UIViewController {
 //MARK: - UICollectionViewDataSource
 extension GeneralViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        15
+        viewModel.articles.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell else { return UICollectionViewCell() }
- 
+        let article = viewModel.getArticle(for: indexPath.row)
+        cell.set(article: article)
         return cell
     }
 }
@@ -69,6 +80,6 @@ extension GeneralViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
 extension GeneralViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+        navigationController?.pushViewController(NewsViewController(), animated: true)
     }
 }

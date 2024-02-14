@@ -67,7 +67,7 @@ extension BusinessViewController: UICollectionViewDataSource {
 //MARK: - UICollectionViewDelegate
     extension BusinessViewController: UICollectionViewDelegate {
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            //navigationController?.pushViewController(<#T##viewController: UIViewController##UIViewController#>, animated: true)
+            navigationController?.pushViewController(NewsViewController(), animated: true)
         }
     }
 // MARK: - UICollectionViewDelegateFlowLayout
