@@ -8,7 +8,12 @@
 import Foundation
 import UIKit
 
-struct NewsResponseObject {
+struct NewsResponseObject: Codable {
     let totalResults: Int
-    let articles: [String]
+    let articles: [ArticleResponseObject]
+    
+    enum CodingKeys: CodingKey {
+        case totalResults
+        case articles
+    }
 }

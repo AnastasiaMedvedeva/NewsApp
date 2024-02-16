@@ -8,9 +8,16 @@
 import Foundation
 import UIKit
 
-struct ArticleResponseObject {
+struct ArticleResponseObject: Codable {
     let title: String
     let description: String
     let urlToImage: String
-    let publishedAt: String
+    let date: String
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case description
+        case urlToImage
+        case date = "publishedAt"
+    }
 }
