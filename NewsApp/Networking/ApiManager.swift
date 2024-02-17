@@ -36,4 +36,17 @@ final class ApiManager {
             completion(.failure(NetworkingError.unknown))
         }
     }
+    static func getImageData(url: String, completion: @escaping(Result<Data,Error>) -> ()) {
+        guard let url = URL(string: url) else { return }
+        let session = URLSession.shared.dataTask(with: url) {
+            data, _, error in
+            if let data = data {
+                completion(.success(data))
+            }
+            if let error = error {
+                completion(.failure(error))
+            }
+        }
+        session.resume()
+    }
 }
