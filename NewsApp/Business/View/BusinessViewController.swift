@@ -20,20 +20,34 @@ class BusinessViewController: UIViewController {
         collectionView.delegate = self
         return collectionView
     }()
+    // MARK: - Properties
+     private var viewModel: BusinessViewModelProtocol
+    
+    // MARK: - Initialization
+    init(viewModel: BusinessViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+            self.setupViewModel()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        view.addSubview(collectionView)
         setupUI()
+        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
+        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
+        viewModel.loadData()
     }
     
     //MARK: - Private methods
     private func setupUI() {
+        view.backgroundColor = .white
+        view.addSubview(collectionView)
         setupConstraints()
-        collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
     }
     
     private func setupConstraints() {
@@ -43,14 +57,29 @@ class BusinessViewController: UIViewController {
             make.leading.trailing.equalToSuperview().inset(5)
         }
     }
+    
+    private func setupViewModel() {
+        viewModel.reloadData = { [weak self] in
+            self?.collectionView.reloadData()
+            }
+        viewModel.reloadCell = { [weak self] row in
+            self?.collectionView.reloadItems(at: [IndexPath(row: row, section: 0)])
+        }
+        viewModel.showError = { error in
+            print(error)
+        }
+    }
 }
 //MARK: - UICollectionViewDataSource
 extension BusinessViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        viewModel.numberOfCells > 1 ? 2 : 1
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        section == 0 ? 1 : 15
+        if viewModel.numberOfCells > 1 {
+            return section == 0 ? 1 : viewModel.numberOfCells - 1
+        }
+        return viewModel.numberOfCells
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -58,16 +87,18 @@ extension BusinessViewController: UICollectionViewDataSource {
         if indexPath.section == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GeneralCollectionViewCell", for: indexPath) as? GeneralCollectionViewCell } else {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DetailsCollectionViewCell".self, for: indexPath) as? DetailsCollectionViewCell
+                let article = viewModel.getArticle(for: indexPath.row + 1)
+                cell?.set(article: article)
                 return cell ?? UICollectionViewCell()
             }
-        return cell ?? UICollectionViewCell()
     }
 }
 
 //MARK: - UICollectionViewDelegate
     extension BusinessViewController: UICollectionViewDelegate {
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            navigationController?.pushViewController(NewsViewController(), animated: true)
+            let article = viewModel.getArticle(for: indexPath.section == 0 ? 0 : indexPath.row + 1)
+            navigationController?.pushViewController(NewsViewController(viewModel: NewsViewModel(article: article)), animated: true)
         }
     }
 // MARK: - UICollectionViewDelegateFlowLayout

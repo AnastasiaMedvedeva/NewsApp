@@ -66,6 +66,15 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
             make.trailing.bottom.equalToSuperview()
         }
     }
-    
+    func set(article: ArticleCellViewModel) {
+        titleLabel.text = article.title
+        
+        if let data = article.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "image")
+        }
+    }
 }
 
