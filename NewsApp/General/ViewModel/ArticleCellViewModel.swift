@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-struct ArticleCellViewModel {
+final class ArticleCellViewModel: TableCollectionViewItemsProtocol {
     let title: String
     let description: String
     let date: String
     var  imageData: Data?
     let imageUrl: String
+    var imageData: Data?
     
     init(article: ArticleResponseObject) {
         title = article.title

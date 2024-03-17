@@ -1,15 +1,15 @@
 //
-//  DetailsCollectionViewCell.swift
+//  TechnologyCollectionViewCell.swift
 //  NewsApp
 //
-//  Created by Анастасия on 13.02.2024.
+//  Created by Анастасия on 26.02.2024.
 //
 
 import Foundation
 import UIKit
 import SnapKit
 
-final class DetailsCollectionViewCell: UICollectionViewCell {
+final class TechnologyCollectionViewCell: UICollectionViewCell {
     // MARK: - GUI Variables
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -21,6 +21,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .boldSystemFont(ofSize: 16)
+        label.text = "Title here"
         label.textColor = .black
         label.numberOfLines = 2
         return label
@@ -28,6 +29,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
+        label.text = "tttrtrtrrtrtrtrtrtrttrt"
         label.textColor = .gray
         label.numberOfLines = 2
         return label
@@ -66,7 +68,7 @@ final class DetailsCollectionViewCell: UICollectionViewCell {
     }
     func set(article: ArticleCellViewModel) {
         titleLabel.text = article.title
-        descriptionLabel.text = article.description
+        
         if let data = article.imageData,
            let image = UIImage(data: data) {
             imageView.image = image

@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 enum NetworkingError: Error {
-case NetworkingError(_ error: Error)
+    case NetworkingError(_ error: Error)
     case unknown
 }

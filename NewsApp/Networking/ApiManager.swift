@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+
 final class ApiManager {
     enum Category: String {
         case general = "general"
@@ -21,8 +22,9 @@ final class ApiManager {
     
     // MARK: - Methods
     static func getNews(from category: Category,
+                        page: Int,
                         completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en" + "&apiKey=\(apiKey)"
+        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + "&apiKey=\(apiKey)"
         guard let url = URL(string: stringUrl) else { return }
         let session = URLSession.shared.dataTask(with: url) { data, response, error in
     handleResponse(data: data, error: error, completion: completion)
