@@ -45,7 +45,7 @@ final class GeneralViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
-        viewModel.loadData()
+        viewModel.loadData(searchText: nil)
     }
     
     //MARK: - Private methods
@@ -98,12 +98,23 @@ extension GeneralViewController: UICollectionViewDelegate {
                         didSelectItemAt indexPath: IndexPath) {
         guard let article = viewModel?.articles[indexPath.section].items[indexPath.row] as?
                 ArticleCellViewModel else { return }
+        
         navigationController?.pushViewController(NewsViewController(
             viewModel: NewsViewModel(article: article)), animated: true)
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == (viewModel.sections[indexPath.section].items.count - 15) {
-            viewModel.loadData()
+            viewModel.loadData(searchText: searchBar.text)
         }
+    }
+}
+// MARK: - UISearchBarDelegate
+extension GeneralViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
+        viewModel.loadData(searchText: text)
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.loadData(searchText: nil)
     }
 }

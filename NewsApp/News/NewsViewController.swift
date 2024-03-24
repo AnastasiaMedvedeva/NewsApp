@@ -19,13 +19,11 @@ final class NewsViewController: UIViewController {
     private lazy var contentView = UIView()
     private lazy var imageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "travel") ?? UIImage.add
         view.contentMode = .scaleAspectFit
         return view
     }()
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "22.04.2000"
         label.font = .systemFont(ofSize: 14)
         label.textColor = .gray
         label.textAlignment = .left
@@ -33,7 +31,6 @@ final class NewsViewController: UIViewController {
     }()
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Some title for the news"
         label.font = .boldSystemFont(ofSize: 30)
         label.textColor = .black
         label.textAlignment = .left
@@ -41,7 +38,6 @@ final class NewsViewController: UIViewController {
     }()
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Lllllllllllllllllllllllllljfdjhjfhjhfjdfhdkhfkjfhkdjfhdjkfhdjfkhfjfhdfjdfhwuey2urty4rop[p0248456544i3h;kds,/jgi58y890231pkjbfklkd;saz.fvfsdsjwiqtryueiowp[q]  wertyui][poiuytrewqasdfghjkl;'/.,mnbvcxzyhb fcjktgf9uiojlk434wfddfgfhshsgfdhffdgfdgshdfskjhfgaskjhsgfsjfgkshjfsgfdfghjkl;nbvcghjklfdshjke"
         label.font = .systemFont(ofSize: 15)
         label.textColor = .gray
         
@@ -50,9 +46,18 @@ final class NewsViewController: UIViewController {
     }()
     
     // MARK: - Private properties
-    let edgeInsets = 15
+    private let edgeInsets = 15
+    private let viewModel: NewsViewModelProtocol
  
     // MARK: - Life cycle
+    init(viewModel: NewsViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -68,6 +73,16 @@ final class NewsViewController: UIViewController {
         contentView.addSubview(dateLabel)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
+        titleLabel.text = viewModel.title
+        descriptionLabel.text = viewModel.description
+        dateLabel.text = viewModel.date
+        if let data = viewModel.imageData,
+           let image = UIImage(data: data) {
+            imageView.image = image
+        } else {
+            imageView.image = UIImage(named: "image")
+        }
+        
         setupConstraints()
     }
     private func setupConstraints() {

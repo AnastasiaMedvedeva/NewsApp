@@ -23,8 +23,13 @@ final class ApiManager {
     // MARK: - Methods
     static func getNews(from category: Category,
                         page: Int,
+                        searchText: String?,
                         completion: @escaping (Result<[ArticleResponseObject], Error>) -> ()) {
-        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + "&apiKey=\(apiKey)"
+        var searchParameter = ""
+        if let searchText = searchText {
+           searchParameter = "q=\(searchText)"
+        }
+        let stringUrl = baseUrl + path + "?category=\(category.rawValue)&language=en&page=\(page)" + searchParameter + "&apiKey=\(apiKey)"
         guard let url = URL(string: stringUrl) else { return }
         let session = URLSession.shared.dataTask(with: url) { data, response, error in
     handleResponse(data: data, error: error, completion: completion)

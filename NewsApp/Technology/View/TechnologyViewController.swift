@@ -40,7 +40,7 @@ final class TechnologyViewController: UIViewController {
             setupUI()
             collectionView.register(TechnologyCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
             collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
-            viewModel.loadData()
+            viewModel.loadData(searchText: nil)
         }
         
         //MARK: - Private methods

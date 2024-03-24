@@ -42,7 +42,7 @@ final class BusinessViewController: UIViewController {
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         collectionView.register(DetailsCollectionViewCell.self, forCellWithReuseIdentifier: "DetailsCollectionViewCell")
         
-        viewModel.loadData()
+        viewModel.loadData(searchText: nil)
     }
     
     //MARK: - Private methods
@@ -102,7 +102,7 @@ extension BusinessViewController: UICollectionViewDataSource {
         }
         func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
             if indexPath.row == (viewModel.sections[1].items.count - 15) {
-                viewModel.loadData()
+                viewModel.loadData(searchText: nil)
             }
                 
         }
