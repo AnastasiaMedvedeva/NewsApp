@@ -12,6 +12,7 @@ final class GeneralViewController: UIViewController {
     // MARK: - GUI Variables
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        searchBar.delegate = self
         return searchBar
     }()
     
@@ -46,6 +47,7 @@ final class GeneralViewController: UIViewController {
         setupUI()
         collectionView.register(GeneralCollectionViewCell.self, forCellWithReuseIdentifier: "GeneralCollectionViewCell")
         viewModel.loadData(searchText: nil)
+        hideKeyboardWhenTappedAround()
     }
     
     //MARK: - Private methods
@@ -74,6 +76,7 @@ final class GeneralViewController: UIViewController {
             self?.collectionView.reloadItems(at: [indexPath])
         }
         viewModel.showError = { error in
+            
             print(error)
         }
     }
@@ -113,8 +116,22 @@ extension GeneralViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text?.trimmingCharacters(in: .whitespacesAndNewlines) else { return }
         viewModel.loadData(searchText: text)
+        searchBar.searchTextField.resignFirstResponder()
     }
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.loadData(searchText: nil)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            viewModel.loadData(searchText: nil)
+        }
+    }
+}
+// MARK: - Keyboard events
+extension GeneralViewController {
+    func hideKeyboardWhenTappedAround() {
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        collectionView.addGestureRecognizer(recognizer)
+    }
+    @objc
+    func hideKeyboard() {
+        collectionView.endEditing(true)
     }
 }
